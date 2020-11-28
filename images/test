@@ -1,0 +1,37 @@
+//Creating the Variables
+var burgerIMG, hotdogIMG, noodlesIMG, friesIMG;
+var burger, hotdog, noodles, fries;
+var bowlIMG, hotdogBunsIMG, burgerBunsIMG, sausagesIMG, meatpattieIMG, tomatoIMG, lettuceIMG, cheeseImg;
+var bowl, hotdogBuns, burgerBuns, sausages, meatpattie, tomato, lettuce, cheese;
+var ingredientsIMG, foodIMG;
+var customer1, customer2, customer3, customer4;
+var backgroundImg;
+
+
+
+gameState = "kitchen";
+
+function preload(){
+  getScene();
+
+  custIMG1 = loadImage("images/man.png");
+  custIMG2 = loadImage("images/man2.jpg");
+  custIMG3 = loadImage("images/woman.png");
+  custIMG4 = loadImage("images/girl.jpg");
+
+  burgerIMG = loadImage("images/burger.jpg");
+  hotdogIMG = loadImage("images/hotdog.jpg");
+  noodlesIMG = loadImage("images/noodles.jpg");
+  friesIMG = loadImage("images/fries.jpg");
+
+  bowlIMG = loadImage("images/bowl.jpg");
+  hotdogBunsIMG = loadImage("images/hotdog_buns.jpg");
+  burgerBunsIMG = loadImage("images/burger_buns.jpg");
+  sausagesIMG = loadImage("images/sausages.jpg");
+  meatpattieIMG = loadImage("images/meatpattie.jpg");
+  tomatoIMG = loadImage("images/tomato.jpg");
+  lettuceIMG = loadImage("images/lettuce.jpg");
+  cheeseImg = loadImage("images/cheese.jpg");
+  
+  
+}
