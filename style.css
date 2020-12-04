@@ -4,7 +4,7 @@ html, body {
 }
 canvas {
   display: block;
-  border: 5px solid maroon;
+  border: 5px solid rgb(14, 1, 1);
   margin-right:auto;
   margin-left:auto;
   margin-top: 100px;

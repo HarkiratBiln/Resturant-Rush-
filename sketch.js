@@ -1,18 +1,14 @@
 //Creating the Variables and Game States
-var burgerIMG, hotdogIMG, noodlesIMG, friesIMG;
-var burger, hotdog, noodles, fries;
 var bowlIMG, plate1IMG, plate2IMG, hotdogBunsIMG, burgerBunsIMG, sausagesIMG, meatpattieIMG, tomatoIMG, lettuceIMG, cheeseImg, plainNoodlesIMG;
 var bowl, plate1, plate2, hotdogBuns, burgerBuns, sausages, meatpattie, tomato, lettuce, cheese, plainNoodles;
 var foodIMG, food;
-var customer1;
-var custIMG1,custIMG2,custIMG3,custIMG4;
 var backgroundImg,b1,b2;
 var coin, coinIMG;
 
 var ingredientsGroup, foodGroup;
 
 var toggleSceneButton;
-gameState = "kitchen";
+gameState = "waiting";
 
 var stockBoard;
 
@@ -40,16 +36,10 @@ function preload(){
   coinIMG = loadImage("images/coin.png");
 
   //Customer Images
-  custIMG1 = loadImage("images/man.png");
-  custIMG2 = loadImage("images/man2.png");
-  custIMG3 = loadImage("images/women.png");
-  custIMG4 = loadImage("images/girl.png");
+
 
   //The Items on Menu
-  burgerIMG = loadImage("images/burger.png");
-  hotdogIMG = loadImage("images/hotdog.png");
-  noodlesIMG = loadImage("images/noodles.png");
-  friesIMG = loadImage("images/fries.png");
+
 
   //Ingredient Images
   bowlIMG = loadImage("images/bowl.png");
@@ -74,21 +64,7 @@ function setup() {
 
   foodGroup = new Group();
   ingredientsGroup = new Group();
-  custGroup = new Group();
-
-  //Creating the Sprites for Dishes
-  burger = createSprite(width/2+100,height/2+100);
-  burger.addImage(burgerIMG);
-  burger.scale = 1.4;
-  hotdog = createSprite(width/2-300,height/2+100);
-  hotdog.addImage(hotdogIMG);
-  hotdog.scale = 1.3;
-  fries = createSprite(width/2-100,height/2+100);
-  fries.addImage(friesIMG)
-  fries.scale = 0.7;
-  noodles = createSprite(width/2-100,height/2+200);
-  noodles.addImage(noodlesIMG);
-
+  
 
   //Creating the Sprites for Ingredients
   bowl = createSprite(width/2-700,height/2+90);
@@ -151,65 +127,30 @@ function setup() {
 function draw() {
   background(backgroundImg);
   drawSprites();
-  if(gameState === "kitchen") {
+  if(gameState === "waiting") {
     ingredientsGroup.setVisibleEach(true);
-    custGroup.setVisibleEach(false);
 
-
-    if(mousePressedOver(tomato)){
-      stock.tomatoCount -=1;
-    }
-
-    if(mousePressedOver(sausages)){
-      stock.sausagesCount -=1;
-    }
-
-    if(mousePressedOver(cheese)){
-      stock.cheeseCount -=1;
-    }
-
-    if(mousePressedOver(lettuce)){
-      stock.lettuceCount -=1;
-    }
-
-    if(mousePressedOver(meatpattie)){
-      stock.meatpattieCount -=1;
-    }
-
-    if(mousePressedOver(burgerBuns)){
-      stock.burgerBunsCount -=1;
-    }
-
-    if(mousePressedOver(hotdogBuns)){
-      stock.hotdogBunsCount -=1;
-    }
-
-    if(mousePressedOver(bowl)){
-      stock.bowlCount -=1;
-    }
-
-    if(mousePressedOver(plainNoodles)){
-      stock.plainNoodlesCount -=1;
-    }
+    var cust = new Customer();
+    var order = window.prompt("Enter your order");
+   
+    gameState = "cooking";
 
     
-  }else if(gameState === "shop"){
+  }
+  else if(gameState === "cooking"){
+    
+    if(keyDown("space")){}
+    else{
+        chooseItems();
+    }
+    
+  }
+  
+  else if(gameState === "shop"){
     
     ingredientsGroup.setVisibleEach(false);
      //Creating the Sprites for Customers
-      customer1 = createSprite(width/2,height/2);
-      var rand = Math.round(random(1,4));
-      switch(rand){
-        case 1: customer1.addImage(custIMG1);
-                break;
-        case 2: customer1.addImage(custIMG2);
-                break;
-        case 3: customer1.addImage(custIMG3);
-                break;
-        case 4: customer1.addImage(custIMG4);
-                break;
-        default : break;       
-      }
+     
   
 
 
@@ -236,9 +177,9 @@ function draw() {
 
 
 //to change the background of the game on toggle button press
-function getScene(){
+async function getScene(){
   if(gameState === "kitchen") {
-    backgroundImg = b1;
+     backgroundImg = b1;
    
   }
   else if(gameState === "shop") {
@@ -254,7 +195,7 @@ function displayStockBoard(){
 
   stockBoard = createSprite(width -230,340,140,150);
   stockBoard.shapeColor = "white";
-  textSize(9);
+  textSize(12);
   text("Stock Report",width - 250,300)
   text("Hot Dogs Buns -" + stock.hotdogBunsCount, width-270,310);
   text("Burger Buns -" + stock.burgerBunsCount, width-270,320);
@@ -267,3 +208,69 @@ function displayStockBoard(){
   text("Fries -" + stock.friesCount, width-270,390);
 }
 
+
+
+function makeNoodles(){
+
+}
+
+
+function makeHotdog(){
+
+}
+
+function makeFries(){
+  
+}
+
+
+function makeBurger() {
+  
+}
+
+function chooseItems(){
+  if(mousePressedOver(tomato)) {
+    if(tomatoCount > 0)stock.tomatoCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(sausages)) {
+    if(sausagesCount > 0)stock.sausagesCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(cheese)) {
+    if(cheeseCount > 0)stock.cheeseCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(lettuce)) {
+    if(lettuceCount > 0)stock.lettuceCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(meatpattie)) {
+    if(meatpattieCount > 0)stock.meatpattieCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(burgerBuns)) {
+    if(burgerBunsCount > 0)stock.burgerBunsCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(hotdogBuns)) {
+    if(hotdogBunsCount > 0)stock.hotdogBunsCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(bowl)) {
+    if(bowlCount > 0)stock.bowlCount -= 1;
+    else console.log("not enough stock");
+  }
+
+  if(mousePressedOver(plainNoodles)) {
+    if(plainNoodlesCount > 0)stock.plainNoodlesCount -= 1;
+    else console.log("not enough stock");
+  }
+}
