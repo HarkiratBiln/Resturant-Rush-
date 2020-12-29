@@ -1,17 +1,12 @@
 //Creating the Variables and Game States
-var burgerIMG, hotdogIMG, noodlesIMG, friesIMG;
-var burger, hotdog, noodles, fries;
 var bowlIMG, plate1IMG, plate2IMG, hotdogBunsIMG, burgerBunsIMG, sausagesIMG, meatpattieIMG, tomatoIMG, lettuceIMG, cheeseImg, plainNoodlesIMG;
 var bowl, plate1, plate2, hotdogBuns, burgerBuns, sausages, meatpattie, tomato, lettuce, cheese, plainNoodles;
 var foodIMG, food;
-var cust1, cust2, cust3, cust4;
-var custIMG1,custIMG2,custIMG3,custIMG4;
-var backgroundImg,b1,b2;
+var backgroundImg,b1;
 var coin, coinIMG;
 
 var ingredientsGroup, foodGroup;
 
-var toggleSceneButton;
 gameState = "waiting";
 
 var stockBoard;
@@ -28,28 +23,87 @@ var stockBoard;
   tomatoCount : 10,
   noodlesCount : 10,
   friesCount : 10,
-  plain_noodles : 10
+
 };
+
+
+ //Collecting Items to Cook
+ var collectedItems = {
+  hotdogBunsCount : 0,
+  burgerBunsCount : 0,
+  sausagesCount : 0,
+  lettuceCount : 0,
+  cheeseCount : 0,
+  meatpattieCount : 0,
+  tomatoCount : 0,
+  noodlesCount : 0,
+  friesCount : 0,
+
+};
+
+
+
+const friesItems = {
+  hotdogBunsCount : 0,
+  burgerBunsCount : 0,
+  sausagesCount : 0,
+  lettuceCount : 0,
+  cheeseCount : 0,
+  meatpattieCount : 0,
+  tomatoCount : 0,
+  noodlesCount : 0,
+  friesCount : 1,
+
+};
+
+const hotDogItems ={
+  hotdogBunsCount : 1,
+  burgerBunsCount : 0,
+  sausagesCount : 1,
+  lettuceCount : 1,
+  cheeseCount : 0,
+  meatpattieCount : 0,
+  tomatoCount : 1,
+  noodlesCount : 0,
+  friesCount : 0,
+
+};
+
+const noodlesItems ={
+  hotdogBunsCount : 0,
+  burgerBunsCount : 0,
+  sausagesCount : 0,
+  lettuceCount : 1,
+  cheeseCount : 0,
+  meatpattieCount : 0,
+  tomatoCount : 1,
+  noodlesCount : 1,
+  friesCount : 0
+
+};
+
+const burgerItems = {
+  hotdogBunsCount : 0,
+  burgerBunsCount : 1,
+  sausagesCount : 0,
+  lettuceCount : 1,
+  cheeseCount : 1,
+  meatpattieCount : 1,
+  tomatoCount : 1,
+  noodlesCount : 0,
+  friesCount : 0
+ };
 
 
 function preload(){
   //getScene();
-  b1 = loadImage("images/kitchen.jpg");
-  b2 =loadImage("images/shop.jpg");
+  bgImg = loadImage("images/shop.jpg");
   //Coin Image
   coinIMG = loadImage("images/coin.png");
 
   //Customer Images
-  custIMG1 = loadImage("images/man.png");
-  custIMG2 = loadImage("images/man2.png");
-  custIMG3 = loadImage("images/women.png");
-  custIMG4 = loadImage("images/girl.png");
-
   //The Items on Menu
-  burgerIMG = loadImage("images/burger.png");
-  hotdogIMG = loadImage("images/hotdog.png");
-  noodlesIMG = loadImage("images/noodles.png");
-  friesIMG = loadImage("images/fries.png");
+
 
   //Ingredient Images
   bowlIMG = loadImage("images/bowl.png");
@@ -76,40 +130,11 @@ function setup() {
   ingredientsGroup = new Group();
   
 
-  //Creating Sprites for the Customers
-  cust1 = createSprite(width/2-500,height/2-100);
-  cust1.addImage(custIMG1);
-  cust1.scale = 5;
-  cust2 = createSprite(width/2-200,height/2-100);
-  cust2.addImage(custIMG2);
-  cust2.scale = 5;
-  cust3 = createSprite(width/2-0,height/2-100);
-  cust3.addImage(custIMG3);
-  cust3.scale = 5;
-  cust4 = createSprite(width/2-200,height/2+100);
-  cust4.addImage(custIMG4);
-  cust4.scale = 5;
-
-
-  //Creating the Sprites for Dishes
-  burger = createSprite(width/2+100,height/2+100);
-  burger.addImage(burgerIMG);
-  burger.scale = 1.4;
-  hotdog = createSprite(width/2-300,height/2+100);
-  hotdog.addImage(hotdogIMG);
-  hotdog.scale = 1.3;
-  fries = createSprite(width/2-100,height/2+100);
-  fries.addImage(friesIMG)
-  fries.scale = 0.7;
-  noodles = createSprite(width/2-100,height/2+200);
-  noodles.addImage(noodlesIMG);
-
-
   //Creating the Sprites for Ingredients
-  bowl = createSprite(width/2-700,height/2+90);
+  bowl = createSprite(width/2-700,height/2+300);
   bowl.addImage(bowlIMG);
   bowl.scale = 1.7;
-  plate1 = createSprite(width/2+600,height/2+125);
+  plate1 = createSprite(width/2+600,height/2+325);
   plate1.addImage(plate1IMG);
   plate1.scale = 1;
   plate2 = createSprite(width/2+300,height/2+185);
@@ -127,7 +152,7 @@ function setup() {
   lettuce = createSprite(width/2+310,height/2+180);
   lettuce.addImage(lettuceIMG);
   lettuce.scale = 1;
-  meatpattie = createSprite(width/2+650,height/2+128);
+  meatpattie = createSprite(width/2+650,height/2+328);
   meatpattie.addImage(meatpattieIMG);
   meatpattie.scale = 0.3;
   burgerBuns = createSprite(width/2-500,height/2+150);
@@ -154,12 +179,8 @@ function setup() {
   ingredientsGroup.add(hotdogBuns);
   ingredientsGroup.add(bowl);
   ingredientsGroup.add(plainNoodles);
-  
-
-  toggleSceneButton = createSprite(width-100,height-100,50,50);
-  toggleSceneButton.shapeColor = "blue";
  
-  backgroundImg = b1;
+  backgroundImg = bgImg;
 }
 
 
@@ -168,83 +189,34 @@ function draw() {
   drawSprites();
   if(gameState === "waiting") {
     ingredientsGroup.setVisibleEach(true);
-   
+
+    var cust = new Customer();
     var order = window.prompt("Enter your order");
-    gameState = "cooking";
-    switch(order){
-      case 1 : makeHotdog();
-              
-      break;
-      
-      case 2 : makeBurger();
-      break;
-
-      case 3 : makeFries();
-      break;
-
-      case 4 : makeNoodles();
-      break;
-
-      default: break;
-    }
-
-  }
-  else if(gameState === "cooking"){
    
+    gameState = "cooking";
 
     
-  }else if(gameState === "shop"){
+  }
+  else if(gameState === "cooking"){
+    
+    if(keyDown("space")){}
+    else{
+        chooseItems();
+    }
+    
+  }
+  
+  else if(gameState === "shop"){
     
     ingredientsGroup.setVisibleEach(false);
      //Creating the Sprites for Customers
-      customer1 = createSprite(width/2,height/2);
-      var rand = Math.round(random(1,4));
-      switch(rand){
-        case 1: customer1.addImage(custIMG1);
-                break;
-        case 2: customer1.addImage(custIMG2);
-                break;
-        case 3: customer1.addImage(custIMG3);
-                break;
-        case 4: customer1.addImage(custIMG4);
-                break;
-        default : break;       
-      }
-  
+     
 
 
-  }
-
-
-  if(mousePressedOver(toggleSceneButton)) {
-    
-    if(gameState === "kitchen"){
-      gameState = "shop";
-    }
-    if(gameState === "shop"){
-      gameState = "kitchen";
-    }
-
-    getScene();
   }
   
   displayStockBoard();
 
-}
-
-
-
-
-//to change the background of the game on toggle button press
-async function getScene(){
-  if(gameState === "kitchen") {
-     backgroundImg = b1;
-   
-  }
-  else if(gameState === "shop") {
-    backgroundImg = b2;
-    
-  }
 }
 
 
@@ -289,38 +261,47 @@ function makeBurger() {
 
 function chooseItems(){
   if(mousePressedOver(tomato)) {
-    stock.tomatoCount -= 1;
+    if(tomatoCount > 0){stock.tomatoCount -= 1;collectedItems.tomatoCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(sausages)) {
-    stock.sausagesCount -= 1;
+    if(sausagesCount > 0){stock.sausagesCount -= 1;collectedItems.sausagesCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(cheese)) {
-    stock.cheeseCount -= 1;
+    if(cheeseCount > 0){stock.cheeseCount -= 1;collectedItems.cheeseCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(lettuce)) {
-    stock.lettuceCount -= 1;
+    if(lettuceCount > 0){stock.lettuceCount -= 1; collectedItems.lettuceCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(meatpattie)) {
-    stock.meatpattieCount -= 1;
+    if(meatpattieCount > 0){stock.meatpattieCount -= 1; collectedItems.meatpattieCount +=1;}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(burgerBuns)) {
-    stock.burgerBunsCount -= 1;
+    if(burgerBunsCount > 0){stock.burgerBunsCount -= 1; collectedItems.burgerBunsCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(hotdogBuns)) {
-    stock.hotdogBunsCount -= 1;
+    if(hotdogBunsCount > 0){stock.hotdogBunsCount -= 1; collectedItems.hotdogBunsCount +=1}
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(bowl)) {
-    stock.bowlCount -= 1;
+    if(bowlCount > 0){stock.bowlCount -= 1; }
+    else console.log("not enough stock");
   }
 
   if(mousePressedOver(plainNoodles)) {
-    stock.plainNoodlesCount -= 1;
+    if(plainNoodlesCount > 0)stock.plainNoodlesCount -= 1;
+    else console.log("not enough stock");
   }
 }
