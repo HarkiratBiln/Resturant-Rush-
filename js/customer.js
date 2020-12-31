@@ -7,7 +7,7 @@ class Customer {
         this.custIMG3 = loadImage("images/women.png");
         this.custIMG4 = loadImage("images/girl.png");
 
-        this.cust = createSprite(200,height/2);
+        this.cust = createSprite(300,height/1.5);
     }
 
 
@@ -18,13 +18,15 @@ class Customer {
         switch(rand){
             case 1: this.cust.addImage(this.custIMG1);
             break;
-            case 2: this.cust.addImage(this.custIMG1);
+            case 2: this.cust.addImage(this.custIMG2);
             break;
-            case 3: this.cust.addImage(this.custIMG1); 
+            case 3: this.cust.addImage(this.custIMG3); 
             break;
-            case 4: this.cust.addImage(this.custIMG1); 
+            case 4: this.cust.addImage(this.custIMG4); 
             break;
         }
+
+        this.cust.scale = 2.5;
 
     }
 }
