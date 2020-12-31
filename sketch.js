@@ -2,13 +2,13 @@
 var bowlIMG, plate1IMG, plate2IMG, hotdogBunsIMG, burgerBunsIMG, sausagesIMG, meatpattieIMG, tomatoIMG, lettuceIMG, cheeseImg, plainNoodlesIMG, friesIMG;
 var bowl, plate1, plate2, hotdogBuns, burgerBuns, sausages, meatpattie, tomato, lettuce, cheese, plainNoodles,fries;
 var backgroundImg,b1;
-var coin, coinIMG;
+
 
 var ingredientsGroup, foodGroup;
 
 gameState = "waiting";
 
-var stockBoard,cust;
+var stockBoard,cust,order;
 
 
   //Creating a Stock
@@ -97,12 +97,6 @@ var stockBoard,cust;
 function preload(){
   //getScene();
   bgImg = loadImage("images/shop.jpg");
-  //Coin Image
-  coinIMG = loadImage("images/coin.png");
-
-  //Customer Images
-  //The Items on Menu
-
 
   //Ingredient Images
   bowlIMG = loadImage("images/bowl.png");
@@ -158,17 +152,15 @@ function setup() {
   burgerBuns = createSprite(width/2-500,height/2+350);
   burgerBuns.addImage(burgerBunsIMG);
   burgerBuns.scale = 0.7;
-  hotdogBuns = createSprite(width/2-700,height/2+300);
+  hotdogBuns = createSprite(width/2-700,height/2+400);
   hotdogBuns.addImage(hotdogBunsIMG);
+  hotdogBuns.scale = 0.7;
   plainNoodles = createSprite(width/2-850,height/2+300);
   plainNoodles.addImage(plainNoodlesIMG);
-  fries = createSprite(width/2-600,height/2+330);
+  fries = createSprite(width/2-300,height/2+330);
   fries.addImage(friesIMG);
 
-  //Creating Sprites for the Coin
-  coin = createSprite(width/2+200,height/2-200);
-  coin.addImage(coinIMG);
-
+  
   //Adding the Ingredients into a Group
   ingredientsGroup.add(tomato);
   ingredientsGroup.add(sausages);
@@ -184,6 +176,16 @@ function setup() {
   cust = new Customer();
  
   backgroundImg = bgImg;
+
+  var rand1 = Math.round(random(1,4));
+  switch(rand1){
+    case 1: order = "fries";break;
+    case 2: order = "noodles";break;
+    case 3: order = "burger";break;
+    case 4: order = "hotdog";break;
+    default : break;
+  }
+
 }
 
 
@@ -195,7 +197,8 @@ function draw() {
 
     cust.display();
  
-    var order = window.prompt("Enter your order");
+   
+    window.prompt("The order is  " + order);
    
     gameState = "choose"
     console.log("choose Items , and Press space when over");
@@ -271,39 +274,58 @@ function makeBurger() {
 
 function chooseItems(){
 
-  if(mousePressedOver(tomato)) {
+  if(mousePressedOver(tomato)||touches.length > 0) {
     if(stock.tomatoCount > 0){stock.tomatoCount -= 1;collectedItems.tomatoCount +=1}
     else console.log("not enough stock");
+    touches=[];
   }
 
-  if(mousePressedOver(sausages)) {
+  if(mousePressedOver(sausages)||touches.length > 0) {
     if(stock.sausagesCount > 0){stock.sausagesCount -= 1;collectedItems.sausagesCount +=1}
     else console.log("not enough stock");
+    touches=[];
   }
 
-  if(mousePressedOver(cheese)) {
+  if(mousePressedOver(cheese)||touches.length > 0) {
     if(stock.cheeseCount > 0){stock.cheeseCount -= 1;collectedItems.cheeseCount +=1}
     else console.log("not enough stock");
+    touches = [];
   }
 
-  if(mousePressedOver(lettuce)) {
+  if(mousePressedOver(lettuce)||touches.length > 0) {
     if(stock.lettuceCount > 0){stock.lettuceCount -= 1; collectedItems.lettuceCount +=1}
     else console.log("not enough stock");
+    touches = [];
   }
 
-  if(mousePressedOver(meatpattie)) {
+  if(mousePressedOver(meatpattie)||touches.length > 0) {
     if(stock.meatpattieCount > 0){stock.meatpattieCount -= 1; collectedItems.meatpattieCount +=1;}
     else console.log("not enough stock");
+    touches = [];
   }
 
-  if(mousePressedOver(burgerBuns)) {
+  if(mousePressedOver(burgerBuns)||touches.length > 0) {
     if(stock.burgerBunsCount > 0){stock.burgerBunsCount -= 1; collectedItems.burgerBunsCount +=1}
     else console.log("not enough stock");
+    touches = [];
   }
 
-  if(mousePressedOver(hotdogBuns)) {
+  if(mousePressedOver(hotdogBuns)||touches.length > 0) {
     if(stock.hotdogBunsCount > 0){stock.hotdogBunsCount -= 1; collectedItems.hotdogBunsCount +=1}
     else console.log("not enough stock");
+    touches = [];
+  }
+  
+  if(mousePressedOver(plainNoodles)||touches.length > 0) {
+    if(stock.noodlesCount > 0){stock.noodlesCount -= 1; collectedItems.noodlesCount +=1}
+    else console.log("not enough stock");
+    touches = [];
+  }
+
+  if(mousePressedOver(fries)||touches.length > 0) {
+    if(stock.friesCount > 0){stock.friesCount -= 1; collectedItems.friesCount +=1}
+    else console.log("not enough stock");
+    touches = [];
   }
 
  /* if(mousePressedOver(bowl)) {
@@ -316,6 +338,6 @@ function chooseItems(){
     else console.log("not enough stock");
   }
 
-  */
+ */ 
 
 }
