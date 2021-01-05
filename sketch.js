@@ -192,6 +192,12 @@ function setup() {
 function draw() {
   background(backgroundImg);
   drawSprites();
+
+  fill("black");
+  textSize(15);
+  text("Click on the correct ingredients to make your dish for your customers!",width - 700,90);
+
+
   if(gameState === "waiting") {
     ingredientsGroup.setVisibleEach(true);
 
@@ -229,19 +235,22 @@ function draw() {
 // the stock of the ingredients
 function displayStockBoard(){
 
-  stockBoard = createSprite(width -230,340,140,150);
+  stockBoard = createSprite(width -150,340);
   stockBoard.shapeColor = "white";
-  textSize(12);
-  text("Stock Report",width - 250,300)
-  text("Hot Dogs Buns -" + stock.hotdogBunsCount, width-270,310);
-  text("Burger Buns -" + stock.burgerBunsCount, width-270,320);
-  text("Sausages -" + stock.sausagesCount, width-270,330);
-  text("Lettuce -" + stock.lettuceCount, width-270,340);
-  text("Cheese -" + stock.cheeseCount, width-270,350);
-  text("Meat Pattie -" + stock.meatpattieCount, width-270,360);
-  text("Tomato -" + stock.tomatoCount, width-270,370);
-  text("Noodle -" + stock.noodlesCount, width-270,380);
-  text("Fries -" + stock.friesCount, width-270,390);
+  
+  if(width <700){ textSize(7);stockBoard.width= 70;stockBoard.height = 80;}
+  else { textSize(15);stockBoard.width= 200;stockBoard.height = 250;}
+
+  text("Stock Report",width - 190,270);
+  text("Hot Dogs Buns -" + stock.hotdogBunsCount, width-210,290);
+  text("Burger Buns -" + stock.burgerBunsCount, width-210,310);
+  text("Sausages -" + stock.sausagesCount, width-210,330);
+  text("Lettuce -" + stock.lettuceCount, width-210,350);
+  text("Cheese -" + stock.cheeseCount, width-210,370);
+  text("Meat Pattie -" + stock.meatpattieCount, width-210,390);
+  text("Tomato -" + stock.tomatoCount, width-210,410);
+  text("Noodle -" + stock.noodlesCount, width-210,430);
+  text("Fries -" + stock.friesCount, width-210,450);
 }
 
 
@@ -327,6 +336,8 @@ function chooseItems(){
     else console.log("not enough stock");
     touches = [];
   }
+
+
 
  /* if(mousePressedOver(bowl)) {
     if(stock.bowlCount > 0){stock.bowlCount -= 1; }

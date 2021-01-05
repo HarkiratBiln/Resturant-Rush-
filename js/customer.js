@@ -7,7 +7,7 @@ class Customer {
         this.custIMG3 = loadImage("images/women.png");
         this.custIMG4 = loadImage("images/girl.png");
 
-        this.cust = createSprite(300,height/1.5);
+        this.cust = createSprite(1000,height/1.7);
     }
 
 
@@ -26,7 +26,7 @@ class Customer {
             break;
         }
 
-        this.cust.scale = 2.5;
+        this.cust.scale = 3.7;
 
     }
 }
